@@ -7,15 +7,14 @@
 
 <body>
 	<div class="container" id="mainContainer">
-			{{>main}}
+		<div id ="navigation">
+			{{>navigation}}
+		</div>
+		<div id ="content">
+			{{>content}}
+		</div>
 		<footer>
 			{{>footer}}
 		</footer>
 	</div>
 </body>
-
-<template name="main">
-	{{#if hello}}
-		{{greeting}}
-	{{/if}}
-</template>
