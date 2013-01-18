@@ -1,2 +1,4 @@
 if Meteor.isServer
-	console.log("On the server");
+	Accounts.config(
+		sendVerificationEmail: true
+	)
