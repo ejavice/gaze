@@ -10,3 +10,5 @@ coffeescript
 stylus
 bootstrap
 spiderable
+jquery
+backbone

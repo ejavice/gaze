@@ -1,5 +1,5 @@
 <head>
-	<title>Blind Bid - Online Blind Auction</title>
+	<title>Meteor -- Base Setup </title>
 
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -7,8 +7,15 @@
 
 <body>
 	<div class="container" id="mainContainer">
-		{{> welcome}}
+			{{>main}}
 		<footer>
+			{{>footer}}
 		</footer>
 	</div>
 </body>
+
+<template name="main">
+	{{#if hello}}
+		{{greeting}}
+	{{/if}}
+</template>
