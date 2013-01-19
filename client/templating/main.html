@@ -3,13 +3,11 @@
 
 	<link rel="icon" href="/favicon.ico" type="image/x-icon" />
 	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+	<script src="http://masonry.desandro.com/jquery.masonry.min.js"></script>
 </head>
 
 <body>
-	<div class="container" id="mainContainer">
-		<div id ="navigation">
-			{{>navigation}}
-		</div>
+	<div id="mainContainer">
 		<div id ="content">
 			{{>content}}
 		</div>
@@ -17,4 +15,16 @@
 			{{>footer}}
 		</footer>
 	</div>
+	<script>
+		$(document).ready(function() {
+			var $container = $('#container');
+			$container.imagesLoaded(function(){
+				$container.masonry({
+					itemSelector : '.item',
+					columnWidth : 240,
+					isAnimated : true
+				});
+			});
+		});
+	</script>
 </body>
