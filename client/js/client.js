@@ -22,12 +22,12 @@ Template.content.newsItem = function() {
 		imageUrl1: "http://photography.naturestocklibrary.com/orca-stock-photo.jpg",
 		imageUrl2: "http://a0.twimg.com/profile_images/1226543249/Justin_Bieber__179__reasonably_small.jpg",
 		imageUrl3: "https://twimg0-a.akamaihd.net/profile_images/2974305624/105d75afc69b5c704c7d8b987a21473d.png",
-		articleName: "Hello Kitty",
-		articleTopic: "Topic Topic"
+		articleName: "Article Header Foo Bar Foo",
+		articleTopic: "Topic: Lorem Ipsum"
 	};
 	return content;
 };
-
+ 
 Template.content.rendered = function () {
 	var $container = $('#container');
 	$container.imagesLoaded( function(){
@@ -35,7 +35,7 @@ Template.content.rendered = function () {
 					itemSelector : '.item',
 					isAnimated : true,
 					columnWidth: function( containerWidth ) {
-						return containerWidth / 7;
+						return containerWidth / 10;
 					}
 			});
 	});
@@ -44,3 +44,10 @@ Template.content.rendered = function () {
 		$("#navContainer").css("margin-top",""+$(document).scrollTop()+"px");
 	});
 };
+
+Template.content.events({
+	'click li': function (event) {
+		var li_id = event.currentTarget.className;// always a P
+		console.log("hello:	"+li_id);// could be the P or a child element
+	}
+});
