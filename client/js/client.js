@@ -3,16 +3,26 @@ console.log("i am here");
 var data;
 var gorkem;
 Meteor.call("get_data", data, function(error, xmldata) {
-		gorkem = xmldata;
-	//console.log(gorkem);
+		    gorkem = xmldata;
+	console.log(gorkem);
 	xmlDoc = $.parseXML( gorkem ),
-		$xml = $( xmlDoc ),
-		$url = $xml.find( "result" ).each(function (index) {
-			$final_url = $(this).find("media").find("media_item url");
-				//console.log($final_url.text());
-			
-		});
-});
+    $xml = $( xmlDoc ),
+    $xml.find( "result" ).each(function (index) {
+    	$(this).find("media media_item url").each(function (){
+    		console.log($(this).text());
+    		// if (articleObject[index]["imageUrl"]){
+    		// 	console.log(articleObject[index]["imageUrl"]);
+    		// }
+    		// else{
+    		// 	articleObject[index] = {"imageUrl": $(this)}
+    		// }
+    	});
+
+    	// articleObject[index] = {"imageUrl" : $(this).find("media media_item url").each(function (){
+
+    	});
+    // console.log(articleObject);
+	});
 
 Template.content.newsItem = function() {
 	var content;
