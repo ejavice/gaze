@@ -36,3 +36,10 @@ Template.content.rendered = function () {
 				});
 		});
 };
+
+// Template.content.rendered = function () {
+// 	$("#container").isotope({
+// 		itemSelector : '.item',
+// 		layoutMode : 'fitRows'
+// 	});
+// };
