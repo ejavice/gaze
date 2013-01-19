@@ -16,7 +16,7 @@ Meteor.call("get_data", data, function(error, xmldata) {
 
 Template.content.newsItem = function() {
 	var content;
-  content = {
+	content = {
 		imageUrl: "http://www.musicnfilms.com/wp-content/uploads/2012/11/Justin-Bieber-photos-songs-list.jpg",
 		articleUrl: "http://www.nyt.com",
 		imageUrl1: "http://photography.naturestocklibrary.com/orca-stock-photo.jpg",
