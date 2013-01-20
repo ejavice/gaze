@@ -85,17 +85,7 @@ Template.content.articleItem = function() {
 
 
 Template.content.newsItem = function() {
-	var content;
-	content = {
-		imageUrl: "http://www.musicnfilms.com/wp-content/uploads/2012/11/Justin-Bieber-photos-songs-list.jpg",
-		articleUrl: "http://www.nyt.com",
-		imageUrl1: "http://photography.naturestocklibrary.com/orca-stock-photo.jpg",
-		imageUrl2: "http://a0.twimg.com/profile_images/1226543249/Justin_Bieber__179__reasonably_small.jpg",
-		imageUrl3: "https://twimg0-a.akamaihd.net/profile_images/2974305624/105d75afc69b5c704c7d8b987a21473d.png",
-		articleName: "Article Header Foo Bar Foo",
-		articleTopic: "Topic: Lorem Ipsum"
-	};
-	return content;
+	return articles.find();
 };
 
 
