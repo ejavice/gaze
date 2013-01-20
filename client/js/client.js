@@ -47,11 +47,10 @@ Meteor.call("get_data", data, function(error, xmldata) {
 
 			articleObject[index]["title"] = $(this).find("title").text();
 			articleObject[index]["topic"] = $(this).find("section").text();
-
-
 		});
+		
 		for (var i = 0; i < Object.keys(imageObject).length; i++){
-			if (articleObject[i] != undefined){
+			if (articleObject[i] !== undefined){
 					articleObject[i]["imageUrl"] = imageObject[i];
 					articleObject[i]["popularity"] = i + 1;
 			}
@@ -59,8 +58,8 @@ Meteor.call("get_data", data, function(error, xmldata) {
 		}
 
 		for (var j = 0; j< Object.keys(articleObject).length; j++ ){
-			if (articleObject[j] =! undefined){
-				if (articleObject[j]["imageUrl"] == undefined){
+			if (articleObject[j] !== undefined){
+				if (articleObject[j]["imageUrl"] === undefined){
 					delete(articleObject[j]);
 				}
 			}
@@ -70,8 +69,10 @@ Meteor.call("get_data", data, function(error, xmldata) {
 
 		
 
-		for (var j = 0; j< Object.keys(articleObject).length; j++ ){
-			articles.insert(articleObject[j]);
+		for (j = 0; j< Object.keys(articleObject).length; j++ ){
+			if(articleObject[j] !== undefined && articleObject[j]["imageUrl"]!== undefined){
+				articles.insert(articleObject[j]);
+			}
 		}
 		Session.set('q', articleObject);
 	}
