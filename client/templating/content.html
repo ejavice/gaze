@@ -27,27 +27,15 @@
 	</div>
 
 	<div id="container">
-		{{#each article}}
-		<a href="{{articleUrl}}" target="_blank">
-			<div class="image_container">
-				<img class="item" src="{{imageUrl}}" height="10%" label="{{topic}}">
-				<h3 class="caption">{{topic}} </br> {{title}}</h3>
-			</div>
-		</a>
-		{{/each}}
+		{{#if article}}
+			{{#each article}}
+			<a href="{{articleUrl}}" target="_blank">
+				<div class="image_container">
+					<img class="item" src="{{imageUrl}}">
+					<h3 class="caption">{{topic}} </br> {{title}}</h3>
+				</div>
+			</a>
+			{{/each}}
+		{{/if}}
 	</div>
-
-<!-- <h3 class="caption">{{topic}} </br> {{title}}</h3> -->
-	<!-- <div id="container">
-		{{#each article}}
-		<a href="{{articleUrl}}" target="_blank">
-			<div class="caption">
-				<img class="item newsImage" src="{{imageUrl}}" height="200px" width="auto">
-				<span class="simple-caption">  
-					<h3 class="cappy">{{topic}} </br> {{title}}</h3>
-				</span>  
-			</div>
-		</a>
-		{{/each}}
-	</div> -->
 </template>

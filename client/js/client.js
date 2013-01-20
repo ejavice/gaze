@@ -84,23 +84,28 @@ Template.content.article = function() {
 
  
 Template.content.rendered = function () {
-	var $container = $('#container');
-	$container.imagesLoaded( function(){
+
+	$(function(){
+			var $container = $('#container');
+			$container.imagesLoaded( function(){
 			$container.masonry({
-					containerWidth: '100%',
-					overflow: visible,
-					itemSelector : '.item',
-					isFitWidth : true,
-					isAnimated : false,
+					itemSelector : '.image_container',
+					isAnimated : true,
+					isFitWidth : false,
 					columnWidth: function( containerWidth ) {
-						return containerWidth / 4;
+						return containerWidth / 5;
 					}
+				});
 			});
+		});
+
+	$(document).ready(function(){
+		$("#container").masonry('reloadItems');
+		$("#container").masonry('reload');
 	});
 	$(document).scroll(function() {
 		$("#navContainer").css("margin-top",""+$(document).scrollTop()+"px");
 	});
-
 };
 
 Template.content.events({
