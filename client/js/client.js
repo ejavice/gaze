@@ -9,69 +9,69 @@ var gorkem;
 
 
 
-Meteor.call("get_data", data, function(error, xmldata) {
-	for(var item = 0; item < xmldata.length; item++){
-		var articleObject = {};
-		console.log(xmldata[item]);
-		var counter = 0;
-		// console.log("Item: " +item);
-		// console.log(xmldata[item]);
-		gorkem = xmldata[item];
-		xmlDoc = $.parseXML( gorkem ),
-		$xml = $( xmlDoc ),
-		$xml.find( "result" ).each(function (index) {
-			articleObject[index] = {"id" : index };
+// Meteor.call("get_data", data, function(error, xmldata) {
+// 	for(var item = 0; item < xmldata.length; item++){
+// 		var articleObject = {};
+// 		console.log(xmldata[item]);
+// 		var counter = 0;
+// 		// console.log("Item: " +item);
+// 		// console.log(xmldata[item]);
+// 		gorkem = xmldata[item];
+// 		xmlDoc = $.parseXML( gorkem ),
+// 		$xml = $( xmlDoc ),
+// 		$xml.find( "result" ).each(function (index) {
+// 			articleObject[index] = {"id" : index };
 
-			imageObject[index] =  undefined;
-			$(this).find("media media_item url").each(function (){
-					dashSplit = $(this).text().split(".");
-					image_quality = dashSplit[dashSplit.length-2].split("-");
-					image_quality = image_quality[image_quality.length-1];
-					if(image_quality == ("popup")){
-						imageObject[index] =  $(this).text();
-					}
+// 			imageObject[index] =  undefined;
+// 			$(this).find("media media_item url").each(function (){
+// 					dashSplit = $(this).text().split(".");
+// 					image_quality = dashSplit[dashSplit.length-2].split("-");
+// 					image_quality = image_quality[image_quality.length-1];
+// 					if(image_quality == ("popup")){
+// 						imageObject[index] =  $(this).text();
+// 					}
 						
-			});
-			$(this).find("url").each(function (index){
-				urlSplit = $(this).text().split(".");
-				if(urlSplit[3] == "html"){
-					articleUrl = {"articleUrl" : $(this).text()};
-					articleObject[counter]["articleUrl"] = $(this).text();
-					counter = counter + 1;
-				}
-			});
+// 			});
+// 			$(this).find("url").each(function (index){
+// 				urlSplit = $(this).text().split(".");
+// 				if(urlSplit[3] == "html"){
+// 					articleUrl = {"articleUrl" : $(this).text()};
+// 					articleObject[counter]["articleUrl"] = $(this).text();
+// 					counter = counter + 1;
+// 				}
+// 			});
 
-			articleObject[index]["title"] = $(this).find("title").text();
-			articleObject[index]["topic"] = $(this).find("section").text();
-		});
+// 			articleObject[index]["title"] = $(this).find("title").text();
+// 			articleObject[index]["topic"] = $(this).find("section").text();
+// 		});
 		
-		for (var i = 0; i < Object.keys(imageObject).length; i++){
-			if (articleObject[i] !== undefined){
-					articleObject[i]["imageUrl"] = imageObject[i];
-					articleObject[i]["popularity"] = i + 1;
-			}
+// 		for (var i = 0; i < Object.keys(imageObject).length; i++){
+// 			if (articleObject[i] !== undefined){
+// 					articleObject[i]["imageUrl"] = imageObject[i];
+// 					articleObject[i]["popularity"] = i + 1;
+// 			}
 
-		}
+// 		}
 
-		for (var j = 0; j< Object.keys(articleObject).length; j++ ){
-			if (articleObject[j] !== undefined){
-				if (articleObject[j]["imageUrl"] === undefined){
-					delete(articleObject[j]);
-				}
-			}
+// 		for (var j = 0; j< Object.keys(articleObject).length; j++ ){
+// 			if (articleObject[j] !== undefined){
+// 				if (articleObject[j]["imageUrl"] === undefined){
+// 					delete(articleObject[j]);
+// 				}
+// 			}
 
-		}
-		// console.log(articleObject);
+// 		}
+// 		// console.log(articleObject);
 
 		
 
-		for (j = 0; j< Object.keys(articleObject).length; j++ ){
-			if(articleObject[j] !== undefined && articleObject[j]["imageUrl"]!== undefined){
-				articles.insert(articleObject[j]);
-			}
-		}
-	}
-});
+// 		for (j = 0; j< Object.keys(articleObject).length; j++ ){
+// 			if(articleObject[j] !== undefined && articleObject[j]["imageUrl"]!== undefined){
+// 				articles.insert(articleObject[j]);
+// 			}
+// 		}
+// 	}
+// });
 
 
 Template.content.article = function() {
@@ -85,6 +85,23 @@ Template.content.article = function() {
  
 Template.content.rendered = function () {
 
+	$(document).ready(function(){
+		$(".pop1").css("width","40%");
+		$(".pop2").css("width","40%");
+		$(".pop3").css("width","40%");
+		$(".pop4").css("width","40%");
+		$(".pop5").css("width","40%");
+		$(".pop6").css("width","30%");
+		$(".pop7").css("width","30%");
+		$(".pop8").css("width","30%");
+		$(".pop9").css("width","30%");
+		$(".pop10").css("width","30%");
+		$(".pop11").css("width","20%");
+		$(".pop12").css("width","20%");
+		$(".pop13").css("width","20%");
+		$(".pop14").css("width","20%");
+		$(".pop15").css("width","20%");
+	});
 	$(function(){
 			var $container = $('#container');
 			$container.imagesLoaded( function(){
@@ -93,7 +110,7 @@ Template.content.rendered = function () {
 					isAnimated : true,
 					isFitWidth : false,
 					columnWidth: function( containerWidth ) {
-						return containerWidth / 5;
+						return containerWidth / 15;
 					}
 				});
 			});
@@ -111,7 +128,7 @@ Template.content.rendered = function () {
 Template.content.events({
 	'click li': function (event) {
 		var li_id = event.currentTarget.className;// always a P
-		console.log("hello:	"+li_id);// could be the P or a child element
+		//console.log("hello:	"+li_id);// could be the P or a child element
 		Session.set("category", ""+li_id);
 	}
 });

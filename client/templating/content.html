@@ -30,9 +30,9 @@
 		{{#if article}}
 			{{#each article}}
 			<a href="{{articleUrl}}" target="_blank">
-				<div class="image_container">
+				<div class="image_container pop{{popularity}}" style="width:30%;">
 					<img class="item" src="{{imageUrl}}">
-					<h3 class="caption">{{topic}} </br> {{title}}</h3>
+					<h3 class="caption"><span class="topicID">{{topic}}</span> </br> {{title}}</h3>
 				</div>
 			</a>
 			{{/each}}
