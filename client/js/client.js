@@ -2,10 +2,6 @@ Meteor.autosubscribe(function(){
 	Meteor.subscribe("articles");
 });
 
-
-console.log("i am here");
-
-
 var newsArticles = {};
 var imageObject = {};
 var data;
@@ -74,18 +70,13 @@ Meteor.call("get_data", data, function(error, xmldata) {
 				articles.insert(articleObject[j]);
 			}
 		}
-		Session.set('q', articleObject);
 	}
 });
 
-Template.content.articleItem = function() {
 
-	return Session.get('q');
-};
-
-
-Template.content.newsItem = function() {
-	return articles.find();
+Template.content.article = function() {
+	if(Session.get("category")===undefined) return articles.find({}, {limit: 100});
+	return articles.find({'topic' : Session.get("category")}, {limit: 100});
 };
 
 
@@ -96,22 +87,26 @@ Template.content.rendered = function () {
 	var $container = $('#container');
 	$container.imagesLoaded( function(){
 			$container.masonry({
+					containerWidth: '100%',
+					overflow: visible,
 					itemSelector : '.item',
-					isAnimated : true,
+					isFitWidth : true,
+					isAnimated : false,
 					columnWidth: function( containerWidth ) {
-						return containerWidth / 10;
+						return containerWidth / 4;
 					}
 			});
 	});
-
 	$(document).scroll(function() {
 		$("#navContainer").css("margin-top",""+$(document).scrollTop()+"px");
 	});
+
 };
 
 Template.content.events({
 	'click li': function (event) {
 		var li_id = event.currentTarget.className;// always a P
 		console.log("hello:	"+li_id);// could be the P or a child element
+		Session.set("category", ""+li_id);
 	}
 });

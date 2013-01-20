@@ -2,19 +2,19 @@
 	<div id="navContainer">
 			<div id="navBar">
 				<ul>
-					<li class="world">World</li>
-					<li class="us">U.S.</li>
-					<li class="politics">Politics</li>
-					<li class="ny">New York</li>
-					<li class="business">Business</li>
-					<li class="dealbook">Dealbook</li>
-					<li class="technology">Technology</li>
-					<li class="sports">Sports</li>
-					<li class="science">Science</li>
-					<li class="health">Health</li>
-					<li class="arts">Arts</li>
-					<li class="style">Style</li>
-					<li class="opinion">Opinion</li>
+					<li class="World">World</li>
+					<li class="U.S.">U.S.</li>
+					<li class="Politics">Politics</li>
+					<li class="N.Y. / Region">New York</li>
+					<li class="Business Day">Business</li>
+					<li class="Dealbook">Dealbook</li>
+					<li class="Technology">Technology</li>
+					<li class="Sports">Sports</li>
+					<li class="Science">Science</li>
+					<li class="Health">Health</li>
+					<li class="Arts">Arts</li>
+					<li class="Style">Style</li>
+					<li class="Opinion">Opinion</li>
 				</ul>
 				<div id="thanks">
 					<p>Powered by</p>
@@ -22,19 +22,32 @@
 					<img id="nyt_logo" src="/nyt_logo.png"/>
 
 				</div>
+
 			</div>
 	</div>
+
 	<div id="container">
-		{{#each}}
+		{{#each article}}
 		<a href="{{articleUrl}}" target="_blank">
-			<div class="item caption">
-				<img class="newsImage" src="{{imageUrl}}">
-				<span class="simple-caption">  
-					<h3 class="topic">{{articleTopic}}</h3>
-					<h3 class="articleName">{{title}}</h3>
-				</span>  
+			<div class="image_container">
+				<img class="item" src="{{imageUrl}}" height="10%" label="{{topic}}">
+				<h3 class="caption">{{topic}} </br> {{title}}</h3>
 			</div>
 		</a>
 		{{/each}}
 	</div>
+
+<!-- <h3 class="caption">{{topic}} </br> {{title}}</h3> -->
+	<!-- <div id="container">
+		{{#each article}}
+		<a href="{{articleUrl}}" target="_blank">
+			<div class="caption">
+				<img class="item newsImage" src="{{imageUrl}}" height="200px" width="auto">
+				<span class="simple-caption">  
+					<h3 class="cappy">{{topic}} </br> {{title}}</h3>
+				</span>  
+			</div>
+		</a>
+		{{/each}}
+	</div> -->
 </template>
