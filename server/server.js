@@ -4,16 +4,30 @@ if (Meteor.isServer) {
   });
 }
 
-url = "http://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/1.xml?api-key=56234986fa369f80fe481a2daf74df87:4:67204078";
+// url = "http://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/1.xml?api-key=56234986fa369f80fe481a2daf74df87:4:67204078";
 
-var xml;
-Meteor.http.get(url, function(err, res) {
-  xml = res.content;
+// url2 = "http://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/1.xml?offset=40&api-key=56234986fa369f80fe481a2daf74df87:4:67204078";
+urllist = [];
+for(var i = 0; i<100 ; i++){
+	url = "http://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/1.xml?offset=" + i * 20 + "&api-key=56234986fa369f80fe481a2daf74df87:4:67204078";
+	urllist.push(url);
+}
+
+console.log(urllist);
+
+
+
+var xmllist = [];
+
+for (var i = 0; i<100; i++){
+	Meteor.http.get(urllist[i], function(err, res) {
+  	xmllist.push(res.content);
 });
+}
 
 Meteor.methods({
         get_data: function(data) {
-            var xmldata = xml;
+            var xmldata = xmllist;
             return xmldata;
         }
     });

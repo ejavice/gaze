@@ -1,0 +1,1 @@
+articles = new Meteor.Collection("articles");

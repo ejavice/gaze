@@ -1,55 +1,81 @@
+Meteor.autosubscribe(function(){
+	Meteor.subscribe("articles");
+});
+
+
 console.log("i am here");
 
-var articleObject = {};
+
 var newsArticles = {};
 var imageObject = {};
 var data;
 var gorkem;
-var counter = 0;
+
 
 
 Meteor.call("get_data", data, function(error, xmldata) {
-	gorkem = xmldata;
-	xmlDoc = $.parseXML( gorkem ),
-	$xml = $( xmlDoc ),
-	$xml.find( "result" ).each(function (index) {
+	for(var item = 0; item < xmldata.length; item++){
+		var articleObject = {};
+		console.log(xmldata[item]);
+		var counter = 0;
+		// console.log("Item: " +item);
+		// console.log(xmldata[item]);
+		gorkem = xmldata[item];
+		xmlDoc = $.parseXML( gorkem ),
+		$xml = $( xmlDoc ),
+		$xml.find( "result" ).each(function (index) {
+			articleObject[index] = {"id" : index };
 
-		articleObject[index] = {"id" : index, "attributes" : [] };
-
-		$(this).find("media media_item url").each(function (){
-				dashSplit = $(this).text().split("-");
-				image_quality = dashSplit[1].split(".")[0];
-				if(image_quality == ("popup" || "superJumbo" || "articleInline" || "Jumbo")){
-					console.log(index + " " + image_quality);
-					imageObject[index] =  $(this).text();
+			imageObject[index] =  undefined;
+			$(this).find("media media_item url").each(function (){
+					dashSplit = $(this).text().split(".");
+					image_quality = dashSplit[dashSplit.length-2].split("-");
+					image_quality = image_quality[image_quality.length-1];
+					if(image_quality == ("popup")){
+						imageObject[index] =  $(this).text();
+					}
+						
+			});
+			$(this).find("url").each(function (index){
+				urlSplit = $(this).text().split(".");
+				if(urlSplit[3] == "html"){
+					articleUrl = {"articleUrl" : $(this).text()};
+					articleObject[counter]["articleUrl"] = $(this).text();
+					counter = counter + 1;
 				}
-					
+			});
+
+			articleObject[index]["title"] = $(this).find("title").text();
+			articleObject[index]["topic"] = $(this).find("section").text();
+
+
 		});
-		$(this).find("url").each(function (index){
-			urlSplit = $(this).text().split(".");
-			if(urlSplit[3] == "html"){
-				articleUrl = {"articleUrl" : $(this).text()};
-				articleObject[counter]["articleUrl"] = $(this).text();
-				counter = counter + 1;
+		for (var i = 0; i < Object.keys(imageObject).length; i++){
+			if (articleObject[i] != undefined){
+					articleObject[i]["imageUrl"] = imageObject[i];
+					articleObject[i]["popularity"] = i + 1;
 			}
-		});
 
-		articleObject[index]["title"] = $(this).find("title").text();
+		}
 
+		for (var j = 0; j< Object.keys(articleObject).length; j++ ){
+			if (articleObject[j] =! undefined){
+				if (articleObject[j]["imageUrl"] == undefined){
+					delete(articleObject[j]);
+				}
+			}
 
-	});
-	for (var i = 0; i <= Object.keys(imageObject).length; i++){
-		//if (imageObject[i] != undefined){
-		//str = imageObject[i];
-		//imageObject[i] = str.replace("thumbStandard","popup");
-		// }
-		articleObject[i]["imageUrl"] = imageObject[i];
-		articleObject[i]["popularity"] = i + 1;
+		}
+		// console.log(articleObject);
+
+		
+
+		for (var j = 0; j< Object.keys(articleObject).length; j++ ){
+			articles.insert(articleObject[j]);
+		}
+		Session.set('q', articleObject);
 	}
-	console.log(articleObject);
-	Session.set('q', articleObject);
-
-	});
+});
 
 Template.content.articleItem = function() {
 
